@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://pong2.gd" type="Script" id=1]
 [ext_resource path="res://left_pallete.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://ball.png" type="Texture" id=5]
 [ext_resource path="res://font.fnt" type="BitmapFont" id=6]
 [ext_resource path="res://Off Limits.smp" type="Sample" id=7]
-[ext_resource path="res://hit.smp" type="Sample" id=8]
+[ext_resource path="res://goal.smp" type="Sample" id=8]
+[ext_resource path="res://hit.smp" type="Sample" id=9]
+[ext_resource path="res://animScore.tres" type="Animation" id=10]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -17,11 +19,17 @@
 "priority": 1,
 "sample": ExtResource( 7 )
 }
+samples/goal = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
 samples/hit = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 1,
-"sample": ExtResource( 8 )
+"sample": ExtResource( 9 )
 }
 
 [node name="Node2D" type="Node2D"]
@@ -96,5 +104,33 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/scored = ExtResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="score" type="Label" parent="AnimationPlayer"]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 198.0
+margin/top = 151.0
+margin/right = 454.0
+margin/bottom = 224.0
+custom_fonts/font = ExtResource( 6 )
+text = "SCORE!!!!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

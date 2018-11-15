@@ -35,18 +35,18 @@ func _process(delta):
 	    ball_speed = ball_speed * 2
 	# Check gameover
 	if (ball_pos.x < 0):
-        leftScore += 1
-        get_node("rightLbl").set_text(str(leftScore))
+        leftScore()
+        score()
         ball_pos = screen_size*0.5
         ball_speed = INITIAL_BALL_SPEED
         direction = Vector2(-1, 0)
 
 	if ( ball_pos.x > screen_size.x):
-        rightScore += 1
-        get_node("leftLbl").set_text(str(rightScore))
-        ball_pos = screen_size*0.5
-        ball_speed = INITIAL_BALL_SPEED
-        direction = Vector2(-1, 0)
+	    rightScore()
+	    score()
+	    ball_pos = screen_size*0.5
+	    ball_speed = INITIAL_BALL_SPEED
+	    direction = Vector2(-1, 0)
 	
 	get_node("ball").set_pos(ball_pos)
 	
@@ -69,3 +69,19 @@ func _process(delta):
 	    right_pos.y += PAD_SPEED * delta
 	
 	get_node("right").set_pos(right_pos)
+func rightScore():
+	rightScore += 1
+	get_node("sonidos").play("goal")
+	get_node("leftLbl").set_text(str(rightScore))
+
+func leftScore():
+    leftScore += 1
+    get_node("sonidos").play("goal")
+    get_node("rightLbl").set_text(str(leftScore))
+
+func score():
+	#get_node("score").set_text("SCORE!!!!!")
+	get_node("AnimationPlayer").play("scored")
+	OS.alert("SCORE!!!!!!!!!!!!!")
+	OS.delay_msec(500)
+	#get_node("score").set_text("")
